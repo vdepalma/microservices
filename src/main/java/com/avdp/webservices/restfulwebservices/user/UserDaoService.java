@@ -3,8 +3,11 @@ package com.avdp.webservices.restfulwebservices.user;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Component;
+
+
 
 @Component
 public class UserDaoService {
@@ -35,6 +38,15 @@ public class UserDaoService {
 				return user;
 			}
 
+		}
+		return null;
+	}
+	
+	public User deleteById(int id) {
+		Optional<User> user = users.stream().filter(u->u.getId()==id).findFirst();
+		if(user.isPresent()) {
+			users.remove(user.get());
+			return user.get();
 		}
 		return null;
 	}
